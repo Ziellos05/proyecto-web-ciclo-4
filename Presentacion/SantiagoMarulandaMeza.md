@@ -1,1 +1,0 @@
-Santiago Marulanda Meza

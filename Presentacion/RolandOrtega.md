@@ -1,1 +1,0 @@
-Roland Andrés Ortega Ayala
