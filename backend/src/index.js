@@ -6,15 +6,36 @@ import http from 'http';
 import dotenv from 'dotenv';
 
 // middlewares
-import ValidateAccess from './middlewares/access.middlewares.js';
+import validateAuthentication from './middlewares/authentication.middleware.js';
 
 // utilities
-import connect from './database';
+import connect from './database.js';
 
 // typeDefs
-import userSchema from './users/schema/index.js';
-import projectSchema from './projects/schema/index.js';
+import typeDefs from './schema/index.js';
 
 // resolvers
-import { allUsers } from './users/resolvers/index.js';
+import resolvers from './resolvers/index.js';
 
+// Config
+
+// Init variables de entorno
+dotenv.config();
+connect(process.env.DB);
+
+const startApolloServer = async (typeDefs, resolvers) => {
+    const app = express();
+    const httpServer = http.createServer(app);
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+    });
+    await server.start();
+    //app.use(server.getMiddleware()); Método tradicional en una aplicación Express
+    server.applyMiddleware({ app });
+    await new Promise(resolve=>httpServer.listen({ port:process.env.PORT }, resolve));
+    console.log(`Server started at http://localhost:${process.env.PORT}${server.graphqlPath}`);
+};
+
+startApolloServer(typeDefs, resolvers);
