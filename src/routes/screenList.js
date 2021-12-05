@@ -6,19 +6,23 @@ import AvancesScreen from "../screens/avances/AvancesScreen";
 import ProyectosScreen from '../screens/proyectos/ProyectosScreen';
 import InscripcionesScreen from '../screens/inscripciones/InscripcionesScreen';
 
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+
 export const publicListScreen = [
     {
         id: 'Login',
         path: '/',
         component: <LoginScreen />,
         name: 'Login',        
-        //icon: <HomeIcon />,
+        icon: <></>,
     },
     {
         id: 'Register',
         path: '/register',
         component: <RegisterScreen />,
-        name: 'Register',        
+        name: 'Register', 
+        icon: <></>,       
     },
 ];
 
@@ -28,23 +32,27 @@ export const privateListScreen = [
         path: '/home',
         component: <HomeScreen />,
         name: 'Home',
+        icon: <ArrowForwardIosIcon />,
     },
     {
         id: 'Proyectos',
         path: '/proyectos',
         component: <ProyectosScreen />,
         name: 'Proyectos',
+        icon: <ArrowForwardIosIcon />,
     },
     {
         id: 'Inscripciones',
         path: '/inscripciones',
         component: <InscripcionesScreen />,
         name: 'Inscripciones',
+        icon: <ArrowForwardIosIcon />,
     },
     {
         id: 'Avances',
         path: '/avances',
         component: <AvancesScreen />,
         name: 'Avances',
+        icon: <ArrowForwardIosIcon />,
     },
 ];

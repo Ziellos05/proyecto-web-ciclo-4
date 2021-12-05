@@ -6,14 +6,13 @@ import http from 'http';
 import dotenv from 'dotenv';
 
 // middlewares
-import ValidateAccess from './middlewares/access.middlewares.js';
+import validateAuthentication from './middlewares/authentication.middleware.js';
 
 // utilities
-import connect from './database';
+import connect from './database.js';
 
 // typeDefs
-import userSchema from './users/schema/index.js';
-import projectSchema from './projects/schema/index.js';
+import typeDefs from './schema/index.js';
 
 // resolvers
 import { allUsers } from './users/resolvers/index.js';
