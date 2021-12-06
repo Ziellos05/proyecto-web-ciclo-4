@@ -11,6 +11,7 @@ import Users from "../models/users.model.js";
 import Enrollements from '../models/enrollments.model.js';
 
 const allUsers = async (parent, args, { user, errorMessage }) => {
+  console.log(user);
   if(!user) {
     throw new AuthenticationError(errorMessage);
   }
@@ -23,6 +24,14 @@ const allUsers = async (parent, args, { user, errorMessage }) => {
 const user = async (parent, args, { user, errorMessage }) => {
   if(!user) {
     throw new Error(errorMessage);
+  }
+  return user;
+};
+
+const userByDocumentId = async (parent, args) => {
+  const user = await Users.findOne({ documentId: args.documentId });
+  if(!user) {
+    throw new Error(`El usuario con el documento ${args.documentId} no existe`);
   }
   return user;
 };
@@ -47,7 +56,7 @@ const login = async (parent, args) => {
   if (!user) {
     throw new Error('User not found');
   }
-  const isValid = await bcrypt.compare(args.password, user.password);
+  const isValid = await bcrypt.compare(args.password, user.password); // (user.password===args.password);
   if(!isValid) {
     throw new Error('Wrong password');
   }
@@ -70,10 +79,11 @@ export default {
     allUsers,
     user,
     userByEmail,
+    userByDocumentId,
+    login,
   },
   userMutations: {
     register,
-    login,
   },
   User: {
     enrollments,

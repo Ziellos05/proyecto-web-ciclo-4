@@ -29,7 +29,8 @@ const startApolloServer = async (typeDefs, resolvers) => {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+        context: async ({ req }) => await validateAuthentication(req),
     });
     await server.start();
     //app.use(server.getMiddleware()); Método tradicional en una aplicación Express
