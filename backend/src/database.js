@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const connect = (DB) => mongoose.connect(DB, {
-  autoIndex: true,
+const connect = () => mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
+    autoIndex: true,
 })
-  .then(() => console.log('Connected to DB'))
-  .catch(err => console.error(err));
+    .then(() => console.log('Connected to database'))
+    .catch(err => console.error(err));
 
 export default connect;
