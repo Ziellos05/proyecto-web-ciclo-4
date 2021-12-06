@@ -48,15 +48,19 @@ const queries = gql`
   type Query {
     userByEmail(email: String!): User
   }
+
+  type Query {
+    userByDocumentId(documentId: Float!): User
+  }
+
+  type Query {
+    login(email: String!, password: String!): String!
+  }
 `;
 
 const mutations = gql`
   type Mutation {
     register(input: RegisterInput!): User!
-  }
-
-  type Mutation {
-    login(email: String!, password: String!): String!
   }
 `;
 
