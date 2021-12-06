@@ -4,8 +4,8 @@ const advanceType = gql`
     #Advance
     type Advance {
         _id: ID!
-        projectID: ObjectId!
-        userID: ObjectId!
+        projectID: Project!
+        userID: User!
         advance: String!
         date: Date!
     }
@@ -42,8 +42,8 @@ const mutations = gql`
 
 const inputs = gql`
     input AddAdvanceInput {
-        projectID: ObjectId!
-        userID: ObjectId!
+        projectID: Project!
+        userID: User!
         advance: String!
         date: Date!
     }

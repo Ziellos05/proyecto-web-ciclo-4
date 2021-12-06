@@ -15,38 +15,28 @@ import connect from './database.js';
 import typeDefs from './schema/index.js';
 
 // resolvers
-import { allUsers } from './users/resolvers/index.js';
-import { isHostComponent } from '@mui/base';
+import resolvers from './resolvers/index.js';
 
-const typeDefs = {
-    ...userSchema,
-    projectSchema
-};
+// Config
 
-const resolvers = {
-    Query: {
-        allUsers,
-    }
-}
-
-// initialization
+// Init variables de entorno
 dotenv.config();
-connect();
+connect(process.env.DB);
 
 const startApolloServer = async (typeDefs, resolvers) => {
-    const PORT = process.env.PORT;
     const app = express();
     const httpServer = http.createServer(app);
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        plugins: [ApolloServerPluginDrainHttpServer({ httpServer})],
-        context: async ({ req } => await validateAuthentication(req)),
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+        context: async ({ req }) => await validateAuthentication(req),
     });
     await server.start();
+    //app.use(server.getMiddleware()); Método tradicional en una aplicación Express
     server.applyMiddleware({ app });
-    await new Promise(resolve => httpServer.listen({ port: PORT }), resolve);
-    console.log(`🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
+    await new Promise(resolve=>httpServer.listen({ port:process.env.PORT }, resolve));
+    console.log(`Server started at http://localhost:${process.env.PORT}${server.graphqlPath}`);
 };
 
 startApolloServer(typeDefs, resolvers);
