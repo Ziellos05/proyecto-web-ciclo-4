@@ -27,7 +27,7 @@ const enums = gql`
 
   # Enum for phase values
   enum Phase {
-    STARTED
+    CREATED
     IN_PROGRESS
     ENDED
   }
@@ -44,8 +44,29 @@ const queries = gql`
   }
 `;
 
+const mutations = gql`
+  type Mutation {
+    updateProjectStatus(input: UpdateProjectStatusInput!): Project!
+    updateProjectPhase(input: UpdateProjectPhaseInput!): Project!
+  }
+`;
+
+const inputs = gql`
+  input UpdateProjectStatusInput {
+    name: String!
+    status: ProjectStatus!
+  }
+
+  input UpdateProjectPhaseInput {
+    name: String!
+    phase: Phase!
+  }
+`;
+
 export default [
   projectType,
   enums,
-  queries
+  queries,
+  mutations,
+  inputs
 ];

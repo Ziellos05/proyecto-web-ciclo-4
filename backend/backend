@@ -1,0 +1,202 @@
+    HU_001
+
+mutation Register($input: RegisterInput!) {
+  register(input: $input) {
+    _id
+  }
+}
+
+{
+  "input": {
+    "email": "",
+    "documentId": 0,
+    "name": "",
+    "lastName": "",
+    "role": "ADMIN",
+    "password": ""
+  }
+}
+
+    HU_002
+
+query Query($email: String!, $password: String!) {
+  login(email: $email, password: $password)
+}
+
+{
+  "email": "",
+  "password": ""
+}
+
+Se obtiene un valor de login, que irá al header en la sección de Authorization
+
+    HU_003
+
+mutation UpdateUser($input: UpdateInput!) {
+  updateUser(input: $input) {
+    name
+  }
+}
+
+{
+  "input": {
+    "email": "",
+    "documentId": 0,
+    "name": "",
+    "lastName": "",
+    "role": "ADMIN",
+    "password": ""
+  }
+}
+
+    HU_004
+
+query AllUsers {
+  allUsers {
+    _id
+    email
+    documentId
+    name
+    lastName
+    fullName
+    role
+    status
+  }
+}
+
+    HU_005
+
+mutation UpdateUserStatus($input: UpdateUserStatusInput!) {
+  updateUserStatus(input: $input) {
+    status
+  }
+}
+
+{
+  "input": {
+    "email":"",
+    "status":"AUTHORIZED"
+  }
+}
+
+    HU_006
+
+query AllProjects {
+  allProjects {
+    _id
+    name
+    generalObjective
+    specificObjectives
+    budget
+    startDate
+    endDate
+    leader_id
+    status
+    phase
+    leader {
+      name
+    }
+  }
+}
+
+    HU_007
+
+mutation UpdateProjectPhase($input: UpdateProjectPhaseInput!) {
+  updateProjectPhase(input: $input) {
+    phase
+  }
+}
+
+{
+  "input": {
+    "name": "",
+    "phase": "IN_PROGRESS"
+  }
+}
+
+    HU_008
+
+mutation UpdateProjectStatus($input: UpdateProjectStatusInput!) {
+  updateProjectStatus(input: $input) {
+    status
+  }
+}
+
+{
+  "input": {
+    "name":"",
+    "status":"INACTIVE"
+  }
+}
+
+    HU_009
+
+mutation UpdateProjectPhase($input: UpdateProjectPhaseInput!) {
+  updateProjectPhase(input: $input) {
+    phase
+  }
+}
+
+{
+  "input": {
+    "name": "",
+    "phase": "ENDED"
+  }
+}
+
+    HU_010
+
+
+
+    HU_011
+
+
+
+    HU_012
+
+
+
+    HU_013
+
+
+
+    HU_014
+
+
+
+    HU_015
+
+
+
+    HU_016
+
+
+
+    HU_017
+
+
+
+    HU_018
+
+
+
+    HU_019
+
+
+
+    HU_020
+
+
+
+    HU_021
+
+
+
+    HU_022
+
+
+
+    HU_023
+
+
+
