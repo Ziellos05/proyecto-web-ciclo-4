@@ -21,7 +21,7 @@ import resolvers from './resolvers/index.js';
 
 // Init variables de entorno
 dotenv.config();
-connect(process.env.DB);
+connect();
 
 const startApolloServer = async (typeDefs, resolvers) => {
     const app = express();
