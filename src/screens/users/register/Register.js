@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-//import FormControlLabel from '@mui/material/FormControlLabel';
-//import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -21,10 +21,16 @@ const RegisterScreen = () => {
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+    console.log(event.currentTarget);
+    console.log(data);
     console.log({
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
+      documentId: data.get('documentId'),
+      student: data.get('student'),
+      leader: data.get('leader'),
     });
   };
 
@@ -74,6 +80,15 @@ const RegisterScreen = () => {
                 <TextField
                   required
                   fullWidth
+                  id="documentId"
+                  label="Documento Identidad "
+                  name="documentId"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   id="email"
                   label="Correo Electrónico"
                   name="email"
@@ -91,12 +106,16 @@ const RegisterScreen = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  control={<Checkbox defaultChecked  name="student" value="student" color="primary" />}
+                  label="ESTUDIANTE"
                 />
-              </Grid> */}
+                <FormControlLabel
+                  control={<Checkbox name="leader" value="leader" color="primary" />}
+                  label="LIDER"
+                />
+              </Grid> 
             </Grid>
             <Button
               type="submit"
