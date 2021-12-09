@@ -22,11 +22,11 @@ const queries = gql`
     }
 
     type Query {
-        advanceByUser(userID: ObjectId!): Advance
+        advanceByUser(userID: ObjectId!): [Advance]
     }
 
     type Query {
-        advanceByProject(projectID: ObjectId!): Advance
+        advanceByProject(projectID: ObjectId!): [Advance]
     }
 
     type Query {

@@ -1,7 +1,7 @@
-import Enrollements from "../models/enrollments.model";
-import Projects from "../models/projects.model";
-import Users from "../models/users.model";
-import Advances from "../models/advances.models";
+import Enrollments from "../models/enrollments.model.js";
+import Projects from "../models/projects.model.js";
+import Users from "../models/users.model.js";
+import Advances from "../models/advances.models.js";
 
 const allAdvances = async () => {
     const advances = await Advances.find();
