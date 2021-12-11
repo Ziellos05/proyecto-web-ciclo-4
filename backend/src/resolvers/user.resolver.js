@@ -20,6 +20,16 @@ const allUsers = async (parent, args, { user, errorMessage }) => {
   return await Users.find();
 };
 
+const allStudents = async (parent, args, { user, errorMessage }) => {
+  if(!user) {
+    throw new AuthenticationError(errorMessage);
+  }
+  if(user.role !== ROLES.LEADER) {
+    throw new Error('Access denied');
+  }
+  return await Users.find({role: 'STUDENT'});
+};
+
 const user = async (parent, args, { user, errorMessage }) => {
   if(!user) {
     throw new Error(errorMessage);
@@ -96,7 +106,7 @@ const updateUserStatus = async (parent, args, {user, errorMessage} ) => {
   if(!user) {
     throw new AuthenticationError(errorMessage);
   }
-  if(user.role !== ROLES.ADMIN) {
+  if(user.role !== ROLES.LEADER) {
     throw new Error('Access denied');
   }
   return await Users.findOneAndUpdate({email: args.input.email}, {
@@ -141,6 +151,7 @@ export default {
     userByEmail,
     userByDocumentId,
     login,
+    allStudents,
   },
   userMutations: {
     register,
