@@ -24,7 +24,6 @@ const projectsSchema = new Schema({
   },
   endDate: {
     type: Date,
-    required: true,
   },
   leader_id: {
     type: Schema.ObjectId,
@@ -36,7 +35,9 @@ const projectsSchema = new Schema({
     required: true,
   },
   phase: {
-    type: String
+    type: String,
+    enum: ['CREATED', 'IN_PROGRESS', 'ENDED'],
+    required: true,
   }
 });
 

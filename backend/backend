@@ -146,57 +146,184 @@ mutation UpdateProjectPhase($input: UpdateProjectPhaseInput!) {
 
     HU_010
 
-
+query AllStudents {
+  allStudents {
+    name
+  }
+}
 
     HU_011
 
+mutation UpdateUserStatus($input: UpdateUserStatusInput!) {
+  updateUserStatus(input: $input) {
+    status
+  }
+}
 
+
+{
+  "input": {
+    "email": "student4@mail.com",
+    "status": "AUTHORIZED"
+  }
+}
 
     HU_012
 
+mutation NewProject($input: NewProjectInput!) {
+  newProject(input: $input) {
+    name
+  }
+}
 
+{
+  "input": {
+    "name":"",
+    "generalObjective":"",
+    "specificObjectives":[],
+    "budget":0
+  }
+}
 
     HU_013
 
-
+query LeaderProjects {
+  leaderProjects {
+    name
+  }
+}
 
     HU_014
 
+mutation UpdateProject($input: UpdateProjectInput!) {
+  updateProject(input: $input) {
+    _id
+  }
+}
 
+{
+  "input": {
+    "_id": "",
+    "name": "",
+    "generalObjective": "",
+    "specificObjectives": [],
+    "budget": 0
+  }
+}
 
     HU_015
 
-
+query LeaderEnrollments {
+  leaderEnrollments {
+    project {
+      _id
+    }
+    student {
+      _id
+    }
+    status
+  }
 
     HU_016
 
+mutation UpdateEnrollmentStatus($input: UpdateEnrollmentStatusInput!) {
+  updateEnrollmentStatus(input: $input) {
+    _id
+  }
+}
 
+{
+  "input": {
+    "_id":"",
+    "status": ""
+  }
+}
 
     HU_017
 
+query LeaderProject($id: ID!) {
+  leaderProject(_id: $id) {
+    _id
+  }
+}
 
+{
+  "id": ""
+}
 
     HU_018
 
+mutation UpdateAdvanceComments($input: UpdateAdvanceCommentsInput!) {
+  updateAdvanceComments(input: $input) {
+    comments
+  }
+}
 
+{
+  "input": {
+    "_id": "",
+    "comments": ""
+  }
+}
 
     HU_019
 
-
+query AllProjects {
+  allProjects {
+    name
+  }
+}
 
     HU_020
 
+mutation NewEnrollment($projectId: ID!) {
+  newEnrollment(project_id: $projectId) {
+    _id
+  }
+}
 
+{
+  "projectId": ""
+}
 
     HU_021
 
+query StudentProjectAdvances($projectId: ID!) {
+  studentProjectAdvances(projectID: $projectId) {
+    _id
+  }
+}
 
+{
+  "projectId": ""
+}
 
     HU_022
 
+mutation NewAdvance($input: NewAdvanceInput!) {
+  newAdvance(input: $input) {
+    _id
+  }
+}
 
+{
+  "input": {
+    "projectID":"",
+    "advance": ""
+  }
+}
 
     HU_023
 
+mutation UpdateAdvanceAdvance($input: UpdateAdvanceAdvanceInput!) {
+  updateAdvanceAdvance(input: $input) {
+    _id
+  }
+}
 
-
+{
+  "input": {
+    "_id": "",
+    "advance": ""
+  }
+}

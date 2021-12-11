@@ -1,57 +1,62 @@
 import { gql } from 'apollo-server';
 
 const advanceType = gql`
-    #Advance
-    type Advance {
-        _id: ID!
-        projectID: Project!
-        userID: User!
-        advance: String!
-        date: Date!
-    }
+  # Advance
+  type Advance {
+    _id: ID!
+    projectID: ID!
+    userID: ID!
+    advance: String!
+    comments: String
+    date: String!
+    project: Project!
+    user: User!
+  }
 `;
 
 const queries = gql`
-    #Query all advances
-    type Query {
-        allAdvances: [Advance]
-    }
+  # Query all advances
+  type Query {
+    allAdvances: [Advance]
+  }
 
-    type Query {
-        advanceById(_id: ID!): Advance
-    }
-
-    type Query {
-        advanceByUser(userID: ObjectId!): [Advance]
-    }
-
-    type Query {
-        advanceByProject(projectID: ObjectId!): [Advance]
-    }
-
-    type Query {
-        advance: Advance!
-    }
+  type Query {
+    studentProjectAdvances(projectID: ID!): [Advance]
+  }
 `;
 
 const mutations = gql`
-    type Mutation {
-        addAdvance(input: AddAdvanceInput!): Advance
-    }
+  type Mutation {
+  updateAdvanceComments(input: UpdateAdvanceCommentsInput!): Advance!
+  }
+
+  type Mutation {
+    newAdvance(input: NewAdvanceInput!): Advance!
+  }
+  type Mutation {
+    updateAdvanceAdvance(input: UpdateAdvanceAdvanceInput!): Advance!
+  }
 `;
 
 const inputs = gql`
-    input AddAdvanceInput {
-        projectID: Project!
-        userID: User!
-        advance: String!
-        date: Date!
-    }
+  input UpdateAdvanceCommentsInput {
+    _id: ID!
+    comments: String!
+  }
+  input NewAdvanceInput {
+    projectID: ID!
+    advance: String!
+  }
+  input UpdateAdvanceAdvanceInput {
+    _id: ID!
+    advance: String!
+  }
 `;
 
+
 export default [
-    advanceType,
-    queries,
-    mutations,
-    inputs
+  advanceType,
+  queries,
+  mutations,
+  inputs
 ];
