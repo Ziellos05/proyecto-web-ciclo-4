@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import AppScreens from '../AppScreens';
-import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import NavigationContainer from '../NavContainer/NavigationContainer';
 import { makeStyles } from '@mui/styles';
