@@ -1,4 +1,13 @@
 .centered {
     align-items: center;
     text-align: center;
+};
+
+.graybg {
+    background-color: gray;
+};
+
+.notline {
+    text-decoration: none;
+    color: black;
 }
