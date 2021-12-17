@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import {Link} from "react-router-dom";
 import Button from '@mui/material/Button';
 import { useQuery } from "@apollo/client";
 import { GET_PROYECTOS } from "../../../graphql/proyectos/queries";
@@ -20,7 +21,7 @@ import Typography from '@mui/material/Typography';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Link } from "@mui/material";
+// import { Link } from "@mui/material";
 
 const GestionProyectos = () => {
 
@@ -64,7 +65,7 @@ const GestionProyectos = () => {
                                 <TableCell align="right">{u.status}</TableCell>
                                 <TableCell align="right">{u.phase}</TableCell>
                                 <TableCell align="right"> 
-                                    <Link to= {`./proyectos/gestion/editar/${u._id}`}>Editar</Link> 
+                                    <Link to= {`/proyectos/gestion/editar/${u._id}`}>Editar</Link> 
                                 </TableCell>
                                                         
                             </TableRow>
