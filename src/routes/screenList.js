@@ -3,10 +3,14 @@ import RegisterScreen from "../screens/users/register/Register";
 import HomeScreen from "../screens/home/Home";
 
 import AvancesScreen from "../screens/avances/AvancesScreen";
-import ProyectosScreen from '../screens/proyectos/ProyectosScreen';
-import InscripcionesScreen from '../screens/inscripciones/InscripcionesScreen';
 
+import ProyectosScreen from '../screens/proyectos/ProyectosScreen';
+import GestionProyectos from "../screens/proyectos/gestion/GestionProyectos";
+import RegistroProyectos from "../screens/proyectos/registro/RegistroProyectos";
+
+import InscripcionesScreen from '../screens/inscripciones/InscripcionesScreen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
 
 
 export const publicListScreen = [
@@ -39,6 +43,20 @@ export const privateListScreen = [
         path: '/proyectos',
         component: <ProyectosScreen />,
         name: 'Proyectos',
+        icon: <ArrowForwardIosIcon />,
+    },
+    {
+        id: 'RegistroProyectos',
+        path: '/proyectos/registro',
+        component: <RegistroProyectos />,
+        name: 'Registro Proyectos',
+        icon: <ArrowForwardIosIcon />,
+    },
+    {
+        id: 'GestionProyectos',
+        path: '/proyectos/gestion',
+        component: <GestionProyectos />,
+        name: 'Gestión Proyectos',
         icon: <ArrowForwardIosIcon />,
     },
     {
