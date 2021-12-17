@@ -64,8 +64,6 @@ export const privateListScreen = [
         id: 'EditarProyectos',
         path: '/proyectos/gestion/editar/:_id',
         component: <EditarProyectos />,
-        name: 'Editar Proyectos',
-        icon: <ArrowForwardIosIcon />,
     },
     {
         id: 'Inscripciones',
