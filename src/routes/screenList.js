@@ -3,6 +3,7 @@ import RegisterScreen from "../screens/users/register/Register";
 import HomeScreen from "../screens/home/Home";
 
 import AvancesScreen from "../screens/avances/AvancesScreen";
+import EditAvance from "../screens/avances/EditAvance";
 import ProyectosScreen from '../screens/proyectos/ProyectosScreen';
 import InscripcionesScreen from '../screens/inscripciones/InscripcionesScreen';
 
@@ -55,4 +56,9 @@ export const privateListScreen = [
         name: 'Avances',
         icon: <ArrowForwardIosIcon />,
     },
+    {
+        id: 'EditAvance',
+        path: '/editaravance/:id',
+        component: <EditAvance />,
+    }
 ];
