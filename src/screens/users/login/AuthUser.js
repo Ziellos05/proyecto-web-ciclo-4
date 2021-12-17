@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CircularProgress from '@mui/material/CircularProgress';
+import { AppContext } from '../../../context/ContextProvider';
 
 import {
     useQuery,
@@ -29,7 +30,7 @@ const style = {
 
 const AuthUser = ({ email: userEmail, password: userPassword, isOpen, onAuthSuccess, onAuthError }) => {
 
-
+    const { setToken } = React.useContext(AppContext);
     const { loading, error, data } = useQuery(LOG_IN, { variables: { email: userEmail, password: userPassword } });
 
     React.useEffect(() => {
@@ -37,6 +38,9 @@ const AuthUser = ({ email: userEmail, password: userPassword, isOpen, onAuthSucc
             onAuthError(`Error! ${error}`);
         }
         else if (data && data.login) {
+            console.log('data', data);
+            localStorage.setItem('token', data.login);
+            setToken({ type: 'ADD_TOKEN', payload: data.login });
             onAuthSuccess();
         }
     }, [error, data]);

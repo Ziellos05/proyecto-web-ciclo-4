@@ -81,7 +81,11 @@ const LoginScreen = () => {
   };
 
   const onAuthSuccess = () => {
-   setAuthState({ type: 'LOG_IN', payload: true });
+      onCloseAuthUser();
+      setTimeout(() => {
+        setAuthState({ type: 'LOG_IN', payload: true });
+      }, 500);
+      
   }
 
   const onAuthError = (error) => {

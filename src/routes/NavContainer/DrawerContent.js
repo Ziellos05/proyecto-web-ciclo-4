@@ -9,7 +9,7 @@ import { AppContext } from '../../context/ContextProvider';
 const DrawerContent = ({ isDrawerOpen, toggleDrawer }) => {
 
     const navigate = useNavigate();
-    const { setAuthState } = React.useContext(AppContext);
+    const { setAuthState, setToken } = React.useContext(AppContext);
 
     const handleOnClick = (route) => {
         navigate(route);
@@ -19,6 +19,8 @@ const DrawerContent = ({ isDrawerOpen, toggleDrawer }) => {
     };
 
     const onPressLogOut = () => {
+        localStorage.removeItem('token')
+        setToken({ type: 'DELETE_TOKEN' });
         setAuthState({ type: 'LOG_OUT', payload: false });
     }
     
