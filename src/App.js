@@ -5,9 +5,9 @@ import AppContainer from './routes/appContainer/AppContainer';
 
 const App = () => {
   return (
-    <ContextProvider>
-      <AppContainer />
-    </ContextProvider>
+      <ContextProvider>
+        <AppContainer />
+      </ContextProvider>
   );
 }
 

@@ -10,14 +10,19 @@ const enrollmentsSchema = new Schema({
     type: Schema.ObjectId,
     required: true
   },
+  leader_id: {
+    type: Schema.ObjectId,
+    required: true
+  },
   status: {
     type: String,
-    enum: ['ACEPTED', 'REJECTED'],
+    enum: ['PENDING', 'ACEPTED', 'REJECTED'],
+    requires: true
   },
-  enrollmentDate: {
+  admissionDate: {
     type: Date,
   },
-  egressDate: {
+  outputDate: {
     type: Date
   }
 })

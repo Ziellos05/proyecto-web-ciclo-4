@@ -12,14 +12,61 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from '../../../context/ContextProvider';
 import Footer from '../commons/Footer';
 import UserIcon from '../commons/UserIcon';
+import AuthUser from './AuthUser';
 
+
+// const GET_ALL_USERS = gql`
+//   query AllUsers {
+//     allUsers {
+//       _id
+//       email
+//       documentId
+//       name
+//       lastName
+//       fullName
+//       role
+//       status
+//     }
+//   }
+// `;
+
+// const REGISTER_USER = gql`
+//   mutation Register($input: RegisterInput!) {
+//     register(input: $input) {
+//       _id
+//     }
+//   }
+
+//   {
+//     "input": {
+//       "email": "",
+//       "documentId": 0,
+//       "name": "",
+//       "lastName": "",
+//       "role": "ADMIN",
+//       "password": ""
+//     }
+//   }
+// `;
 
 
 const LoginScreen = () => {
 
   const navigate = useNavigate();
 
+  
+
   const { user, authState, setAuthState, setUser } = React.useContext(AppContext);
+
+  const [userCredentials, setUserCredentials] = React.useState({
+    email: '',
+    password: ''
+  });
+
+  const [openAuthUser, setOpenAuthUser] = React.useState(false);
+  const onOpenAuthUser = () => setOpenAuthUser(true);
+  const onCloseAuthUser = () => setOpenAuthUser(false);
+
 
   const handleSubmit = (event) => {
 
@@ -30,13 +77,32 @@ const LoginScreen = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
-
-    setAuthState({ type: 'LOG_IN', payload: true });
+    setUserCredentials(prevState => ({ ...prevState, email: data.get('email'), password: data.get('password') }))
   };
+
+  const onAuthSuccess = () => {
+      onCloseAuthUser();
+      setTimeout(() => {
+        setAuthState({ type: 'LOG_IN', payload: true });
+      }, 500);
+      
+  }
+
+  const onAuthError = (error) => {
+    onCloseAuthUser();
+    alert(error);
+  }
 
   const onNavigateToRegistration = () => {
     navigate("/register", { replace: true });
   };
+
+  React.useEffect(() => {
+    const { email, password } = userCredentials;
+    if (email !== '' && password !== '') {
+      onOpenAuthUser();
+    }
+  }, [userCredentials]);
 
   return (
     <>
@@ -49,6 +115,12 @@ const LoginScreen = () => {
             alignItems: 'center',
           }}
         >
+          {openAuthUser && <AuthUser 
+            { ...userCredentials } 
+            isOpen={openAuthUser} 
+            onAuthSuccess={onAuthSuccess}
+            onAuthError={onAuthError}
+          />}
           <UserIcon />
           <Typography component="h1" variant="h5">
             Iniciar Sesión
@@ -73,7 +145,7 @@ const LoginScreen = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-            />            
+            />
             <Button
               type="submit"
               fullWidth
@@ -84,13 +156,13 @@ const LoginScreen = () => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <></>                
+                <></>
               </Grid>
               <Grid item>
-                <Link 
-                  href="#" 
-                  variant="body2" 
-                  onClick={onNavigateToRegistration} 
+                <Link
+                  href="#"
+                  variant="body2"
+                  onClick={onNavigateToRegistration}
                 >
                   {"Aún no tienes una cuenta? Registrate"}
                 </Link>
@@ -98,33 +170,10 @@ const LoginScreen = () => {
             </Grid>
           </Box>
         </Box>
-        <Footer sx={{ mt: 8, mb: 4 }}/>
+        <Footer sx={{ mt: 8, mb: 4 }} />
       </Container>
     </>
   );
 }
-
-/* import * as React from 'react';
-import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles((theme) => ({
-  content: {
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      marginTop: 100
-      // padding: theme.spacing(0.1),
-  }, 
-}));
-
-const LoginScreen = () => {
-  const classes = useStyles();
-  return (
-    <div className={classes.content}>
-      <Button style={{marginRight: 50}} variant="contained">User Log In</Button>
-      <Button variant='outlined'>Registration</Button>
-    </div>
-  );
-} */
 
 export default LoginScreen;

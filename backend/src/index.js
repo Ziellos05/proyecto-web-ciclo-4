@@ -21,7 +21,7 @@ import resolvers from './resolvers/index.js';
 
 // Init variables de entorno
 dotenv.config();
-connect(process.env.DB);
+connect();
 
 const startApolloServer = async (typeDefs, resolvers) => {
     const app = express();
@@ -35,7 +35,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
     await server.start();
     //app.use(server.getMiddleware()); Método tradicional en una aplicación Express
     server.applyMiddleware({ app });
-    await new Promise(resolve=>httpServer.listen({ port:process.env.PORT }, resolve));
+    await new Promise(resolve=>httpServer.listen({ port: process.env.PORT }, resolve));
     console.log(`Server started at http://localhost:${process.env.PORT}${server.graphqlPath}`);
 };
 

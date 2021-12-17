@@ -16,13 +16,14 @@ const AppScreens = ({ authState }) => {
         } else {
             navigate("/");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoggedIn])
 
     return (
         <Routes >
             {
                 screenList.map((screen) => (
-                    <Route exact path={screen.path} element={screen.component} />
+                    <Route exact key={screen.id} path={screen.path} element={screen.component} />
                 ))
             }
         </Routes >

@@ -6,7 +6,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 const Portrait = () => {
 
     return (
-        <Grid container justify = "center">
+        <Grid container justifyContent = "center">
              <Avatar sx={{ bgcolor: green[500] }}>
                 <AssignmentIcon />
             </Avatar>
