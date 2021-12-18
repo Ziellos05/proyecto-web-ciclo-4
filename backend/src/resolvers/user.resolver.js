@@ -121,6 +121,7 @@ const userByEmail = async (parent, args) => {
 
 const login = async (parent, args) => {
   const user = await Users.findOne({ email: args.email });
+  const { email, documentId, name, lastName, fullName, role, password } = user;
   if (!user) {
     throw new Error('User not found');
   }
@@ -129,10 +130,18 @@ const login = async (parent, args) => {
     throw new Error('Wrong password');
   }
   const token = await jwt.sign(
-    { user },
+    { user: {
+      email,
+      documentId,
+      name,
+      lastName,
+      fullName,
+      role,
+      password
+    } },
     // eslint-disable-next-line no-undef
     process.env.SECRET,
-    { expiresIn: '30m' }
+    { expiresIn: '360m' }
   );
   return token;
 };
