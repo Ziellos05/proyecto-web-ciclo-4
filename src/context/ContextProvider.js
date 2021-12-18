@@ -13,13 +13,17 @@ const ContextProvider = ({ children }) => {
 	/** handle user data  */
 	const [user, setUser] = useReducer(Reducer.userInfo, InitialState.userInfo);
 
+	const [token, setToken] = useReducer(Reducer.onAuthToken, InitialState.authToken);
+
 	return (
 		<AppContext.Provider
 			value={{
 				authState,
 				setAuthState,
 				user,	
-				setUser			
+				setUser,
+				token,
+				setToken			
 			}}
 		>
 			{children}

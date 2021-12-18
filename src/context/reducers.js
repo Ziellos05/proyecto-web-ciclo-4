@@ -1,5 +1,24 @@
 import * as InitialState from './initialState';
 
+export const onAuthToken = (state, action) => {
+    const addToken = () => {
+        return { ...state, token: action.payload };
+    };
+
+    const deleteToken = () => {
+        return { ...state, ...InitialState.authToken };
+    }
+
+    switch (action.type) {
+        case 'ADD_TOKEN':
+            return addToken();
+        case 'DELETE_TOKEN':
+            return deleteToken();
+        default:
+            return state;
+    }
+}
+
 /** handle authentication state of a user */
 export const AuthUser = (state, action) => {
     const logInUser = () => {

@@ -9,3 +9,7 @@ export const userInfo = {
     email: '',
     password: '',
 };
+
+export const authToken = {
+    token: false
+};
