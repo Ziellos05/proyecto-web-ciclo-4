@@ -19,7 +19,8 @@ const DrawerContent = ({ isDrawerOpen, toggleDrawer }) => {
     };
 
     const onPressLogOut = () => {
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setToken({ type: 'DELETE_TOKEN' });
         setAuthState({ type: 'LOG_OUT', payload: false });
     }

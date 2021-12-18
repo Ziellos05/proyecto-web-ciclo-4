@@ -38,7 +38,7 @@ const AuthUser = ({ email: userEmail, password: userPassword, isOpen, onAuthSucc
             onAuthError(`Error! ${error}`);
         }
         else if (data && data.login) {
-            console.log('data', data);
+            console.log('login data', data);
             localStorage.setItem('token', data.login);
             setToken({ type: 'ADD_TOKEN', payload: data.login });
             onAuthSuccess();
@@ -53,8 +53,8 @@ const AuthUser = ({ email: userEmail, password: userPassword, isOpen, onAuthSucc
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <CircularProgress />
+                <Box sx={style} >
+                    <CircularProgress style={{marginLeft:25}}/>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Cargando...
                     </Typography>

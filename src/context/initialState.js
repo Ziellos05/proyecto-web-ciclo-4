@@ -5,8 +5,15 @@
 };
 
 export const userInfo = {
-    name: '',
+    documentId: 0,
     email: '',
+    fullName: '',
+    lastName: '',
+    name: '',
+    role: '',
+    status: '',
+    __typename: '',
+    _id: '',
     password: '',
 };
 
