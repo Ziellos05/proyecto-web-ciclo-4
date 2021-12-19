@@ -60,7 +60,10 @@ const updateEnrollmentStatus = async (parents, args, {user, errorMessage}) => {
   {
     status: args.input.status,
     admissionDate: Date.now(),
-  }
+  },
+    {
+      new:true
+    }
   );
 };
 
