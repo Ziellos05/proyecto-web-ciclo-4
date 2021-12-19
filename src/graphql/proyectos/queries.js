@@ -17,4 +17,17 @@ query Projects {
   }
 `;
 
-export { GET_PROYECTOS };
+
+const GET_PROYECTO = gql `
+query Project($_id: ID!) {
+  project(_id: $_id) {
+    name
+    generalObjective
+    specificObjectives
+    budget
+    _id
+  }
+}
+`;
+
+export { GET_PROYECTOS, GET_PROYECTO };
