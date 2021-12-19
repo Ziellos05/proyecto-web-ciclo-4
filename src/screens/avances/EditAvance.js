@@ -76,6 +76,9 @@ const EditAvance = ({avance}) => {
     <Grid>
       <TextField id="comments" label="Comentario" variant="outlined" onChange={handleChange} placeholder={avance.comments} />
     </Grid>
+    <br />
+    <Button variant="contained">Guardar cambios</Button>
+    <h4>(Haz click fuera del recuadro blanco para cancelar)</h4>
     </Box>
   </Modal>
   </>

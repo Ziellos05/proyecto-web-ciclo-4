@@ -35,29 +35,27 @@ const AvancesScreen = () => {
 
   return(
     <>
-                      {/* <Link to={`/editaravance/${avance._id}`}><Button variant="contained">Editar</Button></Link> */}
-
-        <Box sx={{ textAlign: 'center'}}>
-          <h1>Avances</h1>
-        </Box>
-        <Grid container spacing={2}>
-          { data.allAdvances.map((avance) => (
-            <Grid item xs={6}>
-              <Card>
-                <CardContent>
-                  <h2>Proyecto: <Link to={`/proyectos/${avance.project._id}`} className={styles.notline}>{avance.project.name}</Link></h2>
-                  <h3>Autor: <Link to={`/users/${avance.user._id}`}>{avance.user.fullName}</Link></h3>
-                  <h3>Fecha: {avance.date}</h3>
-                  <EditAvance avance={avance} />
-                  <h3>Avance:</h3>
-                  <p>{avance.advance}</p>
-                  <h3>Comentarios:</h3>
-                  <p>{avance.comments}</p>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))};
-        </Grid>        
+      <Box sx={{ textAlign: 'center'}}>
+        <h1>Avances</h1>
+      </Box>
+      <Grid container spacing={2}>
+        { data.allAdvances.map((avance) => (
+          <Grid item xs={6}>
+            <Card>
+              <CardContent>
+                <h2>Proyecto: <Link to={`/proyectos/${avance.project._id}`} className={styles.notline}>{avance.project.name}</Link></h2>
+                <h3>Autor: <Link to={`/users/${avance.user._id}`}>{avance.user.fullName}</Link></h3>
+                <h3>Fecha: {avance.date}</h3>
+                <EditAvance avance={avance} />
+                <h3>Avance:</h3>
+                <p>{avance.advance}</p>
+                <h3>Comentarios:</h3>
+                <p>{avance.comments}</p>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))};
+      </Grid>        
     </>
   )
 };
