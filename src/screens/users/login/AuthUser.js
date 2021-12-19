@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AppContext } from '../../../context/ContextProvider';
+import jwt from 'jsonwebtoken';
 
 import {
     useQuery,
@@ -30,16 +31,23 @@ const style = {
 
 const AuthUser = ({ email: userEmail, password: userPassword, isOpen, onAuthSuccess, onAuthError }) => {
 
-    const { setToken } = React.useContext(AppContext);
+    const { setToken, setUser } = React.useContext(AppContext);
     const { loading, error, data } = useQuery(LOG_IN, { variables: { email: userEmail, password: userPassword } });
 
     React.useEffect(() => {
+        if(loading) return;
         if (error) {
             onAuthError(`Error! ${error}`);
         }
         else if (data && data.login) {
-            console.log('login data', data);
+            // console.log('login data', data);
             localStorage.setItem('token', data.login);
+
+            const userDecoded = jwt.decode(data.login);
+            // console.log('user coded in token', userDecoded.user);
+            localStorage.setItem('user', JSON.stringify(userDecoded.user));
+
+            setUser({ type: 'LOG_IN', payload: { ...userDecoded.user }})
             setToken({ type: 'ADD_TOKEN', payload: data.login });
             onAuthSuccess();
         }

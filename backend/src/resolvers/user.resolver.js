@@ -99,7 +99,10 @@ const updateUser = async (parent, args, { user, errorMessage }) => {
     fullName: newFullName,
     role: newRole,
     password: newPassword,
-  });
+  },
+    {
+      new:true
+    });
 };
 
 const updateUserStatus = async (parent, args, {user, errorMessage} ) => {
@@ -111,7 +114,10 @@ const updateUserStatus = async (parent, args, {user, errorMessage} ) => {
   }
   return await Users.findOneAndUpdate({email: args.input.email}, {
     status: args.input.status,
-  });;
+  },
+    {
+      new:true
+    });;
 }
 
 const userByEmail = async (parent, args) => {
@@ -121,7 +127,7 @@ const userByEmail = async (parent, args) => {
 
 const login = async (parent, args) => {
   const user = await Users.findOne({ email: args.email });
-  const { email, documentId, name, lastName, fullName, role, password } = user;
+  const { _id, email, documentId, name, lastName, fullName, role, password } = user;
   if (!user) {
     throw new Error('User not found');
   }
@@ -131,6 +137,7 @@ const login = async (parent, args) => {
   }
   const token = await jwt.sign(
     { user: {
+      _id,
       email,
       documentId,
       name,
@@ -143,6 +150,7 @@ const login = async (parent, args) => {
     process.env.SECRET,
     { expiresIn: '360m' }
   );
+  console.log(user);
   return token;
 };
 

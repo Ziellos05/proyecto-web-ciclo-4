@@ -68,7 +68,10 @@ const updateAdvanceAdvance = async (parents, args, {user, errorMessage}) => {
   return await Advances.findByIdAndUpdate(args.input._id, 
   {
     advance: args.input.advance
-  }
+  },
+    {
+      new:true
+    }
   );
 };
 
@@ -87,6 +90,9 @@ const updateAdvanceComments = async (parent, args, {user, errorMessage}) => {
   return await Advances.findOneAndUpdate(args.input._id,
     {
       comments: args.input.comments,
+    },
+    {
+      new:true
     }
   );
 };

@@ -30,31 +30,12 @@ import AuthUser from './AuthUser';
 //   }
 // `;
 
-// const REGISTER_USER = gql`
-//   mutation Register($input: RegisterInput!) {
-//     register(input: $input) {
-//       _id
-//     }
-//   }
 
-//   {
-//     "input": {
-//       "email": "",
-//       "documentId": 0,
-//       "name": "",
-//       "lastName": "",
-//       "role": "ADMIN",
-//       "password": ""
-//     }
-//   }
-// `;
 
 
 const LoginScreen = () => {
 
   const navigate = useNavigate();
-
-  
 
   const { setAuthState, setUser } = React.useContext(AppContext);
 
@@ -82,7 +63,7 @@ const LoginScreen = () => {
 
   const onAuthSuccess = () => {
       onCloseAuthUser();
-      setUser({ type: 'LOG_IN', payload: { ...userCredentials }})
+      
       setTimeout(() => {
         setAuthState({ type: 'LOG_IN', payload: true });
       }, 500);
