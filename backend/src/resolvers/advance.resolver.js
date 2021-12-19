@@ -11,9 +11,9 @@ const allAdvances = async () => {
 };
 
 const studentProjectAdvances = async (parent, args, {user, errorMessage}) => {
-  // if (!user) {
-  //   throw new Error(errorMessage);
-  // }
+  if (!user) {
+    throw new Error(errorMessage);
+  }
   if (user.role !== ROLES.STUDENT) {
     throw new Error("Access denied");
   }
