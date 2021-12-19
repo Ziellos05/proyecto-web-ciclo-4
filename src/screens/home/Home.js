@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
+import GetUser from './GetUser';
 
 import {
   useQuery,
@@ -22,13 +23,35 @@ const GET_ALL_USERS = gql`
 `;
 
 const HomeScreen = () => {
-  const token = localStorage.getItem('token');
-  console.log('token', token);
+  
+  const [openGetUser, setOpenGetUser] = React.useState(true);
 
-  const { loading, error, data } = useQuery(GET_ALL_USERS);
+  const onOpenGetUser = () => setOpenGetUser(true);
+  const onCloseGetUser = () => setOpenGetUser(false);
+
+  const onGetUserSuccess = () => {
+    onCloseGetUser();
+  }
+
+  const onGetUserError = (error) => {
+    onCloseGetUser();
+    alert(error);
+  }
+
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('token', token);
+  }, [])
 
   return (
-    <Button variant="contained">Home Screen</Button>
+    <>
+      <Button variant="contained">Los REACTivos</Button>
+      {openGetUser && <GetUser 
+            isOpen={openGetUser} 
+            onGetUserSuccess={onGetUserSuccess}
+            onGetUserError={onGetUserError}
+      />}
+    </>
   );
 }
 

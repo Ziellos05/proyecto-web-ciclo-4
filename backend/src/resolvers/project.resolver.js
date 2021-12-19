@@ -13,6 +13,7 @@ import { AuthenticationError } from "apollo-server";
 // constants
 import { USER_STATUS, ROLES } from "../constants/user.constants.js";
 
+
 const newProject = async (parents, args, { user, errorMessage }) => {
   if (!user) {
     throw new AuthenticationError(errorMessage);
@@ -130,10 +131,12 @@ const updateProject = async (parent, args, { user, errorMessage }) => {
   );
 };
 
-const project = async (parent, args) => {
-  const project = await Projects.findById(args._id);
-  return project;
-};
+
+  const project = async (parent, args) => {
+    const project = await Projects.findOne(args._id);
+    return project;
+  };
+
 
 const leaderProject = async (parent, args, {user, errorMessage}) => {
   if (!user) {
