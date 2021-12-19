@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import EditAvance from './EditAvance';
 import { useQuery, gql } from "@apollo/client";
 import styles from "./Styles.modules.css";
 
@@ -29,14 +29,15 @@ const AVANCES = gql`
 
 const AvancesScreen = () => {
 
-  const { data } = useQuery(AVANCES);
+  const { data, error, loading } = useQuery(AVANCES);
   console.log(data);
 
 
   return(
     <>
-      <Box>
-        <Box sx={{ textAlign: 'center', m: 1 }}>
+                      {/* <Link to={`/editaravance/${avance._id}`}><Button variant="contained">Editar</Button></Link> */}
+
+        <Box sx={{ textAlign: 'center'}}>
           <h1>Avances</h1>
         </Box>
         <Grid container spacing={2}>
@@ -47,7 +48,7 @@ const AvancesScreen = () => {
                   <h2>Proyecto: <Link to={`/proyectos/${avance.project._id}`} className={styles.notline}>{avance.project.name}</Link></h2>
                   <h3>Autor: <Link to={`/users/${avance.user._id}`}>{avance.user.fullName}</Link></h3>
                   <h3>Fecha: {avance.date}</h3>
-                  <Link to={`/editaravance/${avance._id}`}><Button variant="contained">Editar</Button></Link>
+                  <EditAvance avance={avance} />
                   <h3>Avance:</h3>
                   <p>{avance.advance}</p>
                   <h3>Comentarios:</h3>
@@ -55,9 +56,8 @@ const AvancesScreen = () => {
                 </CardContent>
               </Card>
             </Grid>
-          ))}
+          ))};
         </Grid>        
-      </Box>
     </>
   )
 };
