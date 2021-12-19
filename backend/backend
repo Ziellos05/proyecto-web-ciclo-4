@@ -182,6 +182,8 @@ mutation NewProject($input: NewProjectInput!) {
     "generalObjective":"",
     "specificObjectives":[],
     "budget":0
+    "startDate": "MM/DD/AAAA HH:MM",
+    "endDate": "MM/DD/AAAA HH:MM"
   }
 }
 
