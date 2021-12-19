@@ -1,56 +1,73 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Container, Input, InputLabel, Grid, Button, TextField, Typography } from '@material-ui/core'
 
-
+import { DatePicker } from "@material-ui/pickers";
 
 const RegistroProyectos = () => {
+
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
+  console.log(fechaSeleccionada);
   return (
 
     <div>
-      <Container 
-      component="main" 
-      maxWidth="xs">
-        <Box
+      <Grid item>
+        <Typography variant="h5" color="primary">Registrar Proyecto</Typography>
+      </Grid>
+      <Box
+        component="form"
           sx={{
+            '& .MuiTextField-root': { m:1, width: '40ch' },
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          noValidate
+          autoComplete="off"
         >
 
-    <Grid
-    container 
-    justifyContent="center" 
-    alignItems="center" 
-    direction="column" 
-    style={{ minHeight: "50vh" }} 
-    spacing={5} >
-      <Grid item>
-        <Typography variant="h5" color="primary">Registrar Proyecto</Typography>
-      </Grid>
+        <div>
+            <TextField 
+            variant="outlined" 
+            label="Nombre Proyecto" 
+            name="name"
+            fullWidth style={{ marginBottom: "2em", marginRight: "2em" }}
 
-        <Grid 
-          container 
-          direction="column" 
-          alignItems="center" 
-          justifyContent="center" 
-          >
+            />
+            <TextField 
+            variant="outlined" 
+            label="Fecha de Inicio" 
+            name="startDate"
+            fullWidth style={{ marginBottom: "2em" }}
 
-          <TextField 
-          variant="outlined" 
-          label="Nombre Proyecto" 
-          name="name"
-          fullWidth style={{ marginBottom: "2em" }}
+            /> 
+        </div>
 
-          />
-          <TextField 
-          variant="outlined" 
-          label="Presupuesto" 
-          name="budget"
-          fullWidth style={{ marginBottom: "2em" }}
+        <div>
+          
+          <DatePicker value={fechaSeleccionada} onChange={setFechaSeleccionada}
+            label="Fecha Inicio Proyecto"
+            inputVariant="outlined"
+            format="MM/dd/yyyy"
+            style={{ marginRight: "2em" }}/>
 
-          /> 
+          <DatePicker value={fechaSeleccionada} onChange={setFechaSeleccionada}
+            label="Fecha Fin Proyecto"
+            inputVariant="outlined"
+            format="MM/dd/yyyy"/>
+        </div>
+
+
+
+
+      </Box>
+
+
+
+
+
+
+<Grid>
           <TextField 
             variant="outlined" 
             label="Objetivo General" 
@@ -80,12 +97,11 @@ const RegistroProyectos = () => {
           </Button>
 
         </Grid>
-      </Grid>
+
 
   
     
-    </Box>
-  </Container>
+ 
 
 
     </div>
