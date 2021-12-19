@@ -56,7 +56,7 @@ const LoginScreen = () => {
 
   
 
-  const { user, authState, setAuthState, setUser } = React.useContext(AppContext);
+  const { setAuthState, setUser } = React.useContext(AppContext);
 
   const [userCredentials, setUserCredentials] = React.useState({
     email: '',
@@ -82,10 +82,10 @@ const LoginScreen = () => {
 
   const onAuthSuccess = () => {
       onCloseAuthUser();
+      setUser({ type: 'LOG_IN', payload: { ...userCredentials }})
       setTimeout(() => {
         setAuthState({ type: 'LOG_IN', payload: true });
       }, 500);
-      
   }
 
   const onAuthError = (error) => {
