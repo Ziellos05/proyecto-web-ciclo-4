@@ -22,9 +22,9 @@ const newProject = async (parents, args, { user, errorMessage }) => {
   }
   const project = new Projects({
     ...args.input,
-    startDate: Date.now(),
+    // startDate: Date.now(),
     leader_id: user._id,
-    status: "ACTIVE",
+    status: "INACTIVE",
     phase: "CREATED",
   });
   return project.save();
@@ -60,6 +60,9 @@ const updateProjectStatus = async (parent, args, { user, errorMessage }) => {
     { name: args.input.name },
     {
       status: args.input.status,
+    },
+    {
+      new:true
     }
   );
 };
@@ -75,6 +78,9 @@ const updateProjectPhase = async (parent, args, { user, errorMessage }) => {
     { name: args.input.name },
     {
       phase: args.input.phase,
+    },
+    {
+      new:true
     }
   );
 };
@@ -117,6 +123,9 @@ const updateProject = async (parent, args, { user, errorMessage }) => {
       generalObjective: newGeneralObjective,
       specificObjectives: newSpecificObjectives,
       budget: newBudget,
+    },
+    {
+      new:true
     }
   );
 };
