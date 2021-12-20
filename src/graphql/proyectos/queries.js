@@ -30,4 +30,32 @@ query Project($_id: ID!) {
 }
 `;
 
-export { GET_PROYECTOS, GET_PROYECTO };
+const GET_USUARIOS = gql `
+query AllUsers($filtro: FiltroUsuarios) {
+  allUsers(filtro: $filtro) {
+    _id
+    name
+    email
+    status
+    documentId
+    role
+  }
+}
+`;
+
+
+
+/* const NEW_PROYECTO = gql `
+mutation Mutation {
+  newProject(input: {
+    name
+    generalObjective
+    specificObjectives
+    budget
+    startDate
+    endDate
+  })
+}
+`; */
+
+export { GET_PROYECTOS, GET_PROYECTO, GET_USUARIOS };

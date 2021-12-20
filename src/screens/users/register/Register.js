@@ -1,41 +1,49 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import Footer from '../commons/Footer';
 import UserIcon from '../commons/UserIcon';
+import UserForm from '../commons/UserForm';
+import RegisterUser from './RegisterUser';
+import { AppContext } from '../../../context/ContextProvider';
 
 
 const RegisterScreen = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  // const { setUser } = React.useContext(AppContext);
 
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(event.currentTarget);
-    console.log(data);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-      documentId: data.get('documentId'),
-      student: data.get('student'),
-      leader: data.get('leader'),
-    });
+
+  const [openRegisterUser, setOpenRegisterUser] = React.useState(false);
+  const onOpenRegisterUser = () => setOpenRegisterUser(true);
+  const onCloseRegisterUser = () => setOpenRegisterUser(false);
+
+  const refUserData = React.useRef({});
+
+  const onHandleSubmit = (userData) => {
+
+    console.log('userData', userData);
+    refUserData.current = userData;
+    return onOpenRegisterUser();
   };
 
-  const onPressGoBack = () => {
-    navigate("/");
+  const onRegisterSuccess = () => {
+    onCloseRegisterUser();
+    //setUser({ type: 'LOG_IN', payload: { ...refUserData.current }})
+    alert(`Usuario creado!, Ingresa con tu cuenta`);
+    navigate("/", { replace: true });
+
+    // setTimeout(() => {
+    //   setAuthState({ type: 'LOG_IN', payload: true });
+    // }, 500);
+  };
+
+  const onRegisterError = (error) => {
+    onCloseRegisterUser();
+    alert(error);
   };
 
   return (
@@ -49,94 +57,19 @@ const RegisterScreen = () => {
             alignItems: 'center',
           }}
         >
+          {openRegisterUser && <RegisterUser 
+            userData={refUserData.current}
+            isOpen={openRegisterUser} 
+            onRegisterSuccess={onRegisterSuccess}
+            onRegisterError={onRegisterError}
+          />}
           <UserIcon />
           <Typography component="h1" variant="h5">
             Crear Cuenta
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Nombres"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Apellidos"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="documentId"
-                  label="Documento Identidad "
-                  name="documentId"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Correo Electrónico"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Contraseña"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox defaultChecked  name="student" value="student" color="primary" />}
-                  label="ESTUDIANTE"
-                />
-                <FormControlLabel
-                  control={<Checkbox name="leader" value="leader" color="primary" />}
-                  label="LIDER"
-                />
-              </Grid> 
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Registrarse
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link 
-                  href="#" 
-                  variant="body2"
-                  onClick={onPressGoBack}
-                >
-                  Ya tienes una cuenta? Inicia Sesión
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          
+          <UserForm isRegisterEnabled onHandleSubmit={onHandleSubmit} />
+          
         </Box>
         <Footer sx={{ mt: 5 }} />
       </Container>

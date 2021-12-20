@@ -86,7 +86,7 @@ const AppContainer = () => {
 
         const newClient = new ApolloClient({
             link: newAuthLink.concat(httpLink),
-            cache: new InMemoryCache()
+            cache: new InMemoryCache(),
         });
         setClient(newClient);
     }, [token])

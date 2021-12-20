@@ -31,10 +31,22 @@ const enums = gql`
   }
 `;
 
+const filtros = gql`
+  input FiltroUsuarios{
+    _id: ID
+    email: String
+    documentId: Float
+    role: UserRole
+    status: UserStatus
+  }
+
+`;
+
+
 const queries = gql`
   # Query all users
   type Query {
-    allUsers: [User]
+    allUsers(filtro: FiltroUsuarios): [User]
   }
 
   type Query {
@@ -108,4 +120,5 @@ export default [
   queries,
   mutations,
   inputs,
+  filtros
 ];

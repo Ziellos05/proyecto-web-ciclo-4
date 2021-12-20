@@ -46,6 +46,8 @@ const GetUser = ({ isOpen, onGetUserSuccess, onGetUserError }) => {
     React.useEffect(() => {
         if (loading) return;
         if (error) {
+            console.log('current User', user);
+            localStorage.setItem('user', JSON.stringify(user));
             onGetUserError(`Error! ${error}`);
         }
         else if (data && data.allUsers) {
