@@ -1,18 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Input, InputLabel, Grid, Button, TextField, Typography } from '@material-ui/core'
+import { Box, Container, Input, InputLabel, Grid, Button, TextField, Typography, Select, MenuItem, Menu } from '@material-ui/core'
 import { Link } from "react-router-dom";
 import { DatePicker } from "@material-ui/pickers";
 import { useQuery } from "@apollo/client";
 import { GET_USUARIOS } from "../../../graphql/proyectos/queries";
+import Dropdown from "../../../components/Dropdown";
+import { NoSchemaIntrospectionCustomRule } from "graphql";
+import useFormData from "../../../hooks/useFormData";
 
 const RegistroProyectos = () => {
 
-  const {data, loading, error } = useQuery(GET_USUARIOS); 
+  const { form, formData, updateFormData } = useFormData(null);
+
+  const [listaUsuarios, setListaUsuarios] = useState('');
+
+
+  const {data, loading, error } = useQuery(GET_USUARIOS, {
+    variables: {
+      filtro: { role: 'LEADER', status: 'AUTHORIZED'},
+    }
+  }); 
 
   useEffect(() => {
     console.log(data);
+    if(data) {
+      const lu = {};
+      data.allUsers.forEach((elemento) => {
+        lu[elemento._id] = elemento.name;
+      });
+      setListaUsuarios(lu);
+    }
   }, [data]);
+  console.log(listaUsuarios);
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
   const [fechaSeleccionada, setFechaSeleccionada] = useState(new Date());
   console.log(fechaSeleccionada);
@@ -39,6 +63,8 @@ const RegistroProyectos = () => {
           noValidate
           autoComplete="off"
         >
+      <form ref={form} onChange={updateFormData} onSubmit={submitForm}>
+
 
         <div>
             <TextField 
@@ -63,12 +89,17 @@ const RegistroProyectos = () => {
             label="Fecha Inicio Proyecto"
             inputVariant="outlined"
             format="MM/dd/yyyy"
-            style={{ marginRight: "2em" }}/>
+            style={{ marginRight: "2em" }}
+            defaultValue={Date.now()}
+            />
+           
 
           <DatePicker value={fechaSeleccionada} onChange={setFechaSeleccionada}
             label="Fecha Fin Proyecto"
             inputVariant="outlined"
-            format="MM/dd/yyyy"/>
+            format="MM/dd/yyyy"
+            defaultValue={Date.now()}
+            />
         </div>
 
         <div>
@@ -89,24 +120,29 @@ const RegistroProyectos = () => {
             multiline
             rows={4}
 
-            fullWidth style={{ marginTop: "2em" }}/>
+            fullWidth style={{ marginTop: "2em", marginBottom: "2em" }}/>
 
         </div>
 
 
+        <div>
+          <Dropdown 
+            label="Líder"
+            options={listaUsuarios} 
+            name='lider' 
+            required={true}
+          />
+            
 
-
+        </div>
+        </form>
+ 
       </Box>
-
-
-
-
 
 
 <Grid>
 
           <Button 
- 
             loading="false"
             type="submit"
             size="large" 

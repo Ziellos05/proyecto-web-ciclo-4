@@ -6,9 +6,6 @@ import { GET_PROYECTO } from "../../../graphql/proyectos/queries";
 import { Box, Container, Input, InputLabel, Grid, Button, TextField, Typography } from '@material-ui/core'
 import useFormData from "../../../hooks/useFormData";
 
-
-
-
 const EditarProyectos = () => {
   
   const { form, formData, updateFormData } = useFormData(null);
@@ -26,7 +23,7 @@ const EditarProyectos = () => {
   }
 
 
-  console.log(data);
+  //console.log(data);
   
   return (
 
@@ -98,7 +95,6 @@ const EditarProyectos = () => {
             fullWidth style={{ marginBottom: "2em" }}/>
 
           <Button 
- 
             loading="false"
             type="submit"
             size="large" 
