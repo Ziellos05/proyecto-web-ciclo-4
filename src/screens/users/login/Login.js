@@ -30,33 +30,14 @@ import AuthUser from './AuthUser';
 //   }
 // `;
 
-// const REGISTER_USER = gql`
-//   mutation Register($input: RegisterInput!) {
-//     register(input: $input) {
-//       _id
-//     }
-//   }
 
-//   {
-//     "input": {
-//       "email": "",
-//       "documentId": 0,
-//       "name": "",
-//       "lastName": "",
-//       "role": "ADMIN",
-//       "password": ""
-//     }
-//   }
-// `;
 
 
 const LoginScreen = () => {
 
   const navigate = useNavigate();
 
-  
-
-  const { user, authState, setAuthState, setUser } = React.useContext(AppContext);
+  const { setAuthState, setUser } = React.useContext(AppContext);
 
   const [userCredentials, setUserCredentials] = React.useState({
     email: '',
@@ -82,10 +63,10 @@ const LoginScreen = () => {
 
   const onAuthSuccess = () => {
       onCloseAuthUser();
+      
       setTimeout(() => {
         setAuthState({ type: 'LOG_IN', payload: true });
       }, 500);
-      
   }
 
   const onAuthError = (error) => {

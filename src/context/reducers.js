@@ -46,7 +46,7 @@ export const userInfo = (state, action) => {
     
     const setUserInfo = () => {
         const { name, email, password } = action.payload;
-        return { ...state, name: name, email: email, password: password  };
+        return { ...state, ...action.payload  };
     };
 
     const cleanUserInfo = () => {

@@ -6,7 +6,7 @@ import BarNavigator from './BarNavigator';
 import { useTheme } from '@mui/material/styles';
 
 
-const drawerWidth = 190;
+const drawerWidth = 205;
 
 const useStyles = makeStyles((theme) => ({
     drawer: {

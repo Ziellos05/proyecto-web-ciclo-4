@@ -13,6 +13,13 @@ import { AuthenticationError } from "apollo-server";
 // constants
 import { USER_STATUS, ROLES } from "../constants/user.constants.js";
 
+
+
+  
+
+
+
+
 const newProject = async (parents, args, { user, errorMessage }) => {
   if (!user) {
     throw new AuthenticationError(errorMessage);
@@ -22,9 +29,9 @@ const newProject = async (parents, args, { user, errorMessage }) => {
   }
   const project = new Projects({
     ...args.input,
-    startDate: Date.now(),
+    // startDate: Date.now(),
     leader_id: user._id,
-    status: "ACTIVE",
+    status: "INACTIVE",
     phase: "CREATED",
   });
   return project.save();
@@ -60,6 +67,9 @@ const updateProjectStatus = async (parent, args, { user, errorMessage }) => {
     { name: args.input.name },
     {
       status: args.input.status,
+    },
+    {
+      new:true
     }
   );
 };
@@ -75,6 +85,9 @@ const updateProjectPhase = async (parent, args, { user, errorMessage }) => {
     { name: args.input.name },
     {
       phase: args.input.phase,
+    },
+    {
+      new:true
     }
   );
 };
@@ -117,14 +130,19 @@ const updateProject = async (parent, args, { user, errorMessage }) => {
       generalObjective: newGeneralObjective,
       specificObjectives: newSpecificObjectives,
       budget: newBudget,
+    },
+    {
+      new:true
     }
   );
 };
 
-const project = async (parent, args) => {
-  const project = await Projects.findById(args._id);
-  return project;
-};
+
+  const project = async (parent, args) => {
+    const project = await Projects.findOne(args._id);
+    return project;
+  };
+
 
 const leaderProject = async (parent, args, {user, errorMessage}) => {
   if (!user) {
@@ -158,6 +176,7 @@ const advances = async (parent) => {
   });
   return advances;
 };
+
 
 export default {
   projectQueries: {
