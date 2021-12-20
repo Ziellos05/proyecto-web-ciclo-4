@@ -6,31 +6,20 @@ import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import Grid from '@mui/material/Grid';
 
-import { useQuery, gql } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 
-// const AvancesProyecto = gql`
-//   query AdvancesByProject($id: ID!) {
-//     project(_id: $id) {
-//       advances {
-//         _id
-//         project {
-//           _id
-//           name
-//         }
-//         user {
-//           _id
-//           fullName
-//         }
-//         advance
-//         comments
-//       }
-//     }
-//   }
-// `;
+const UpdateAdvance = gql`
+mutation UpdateAdvance($input: UpdateAdvanceAdvanceInput!) {
+  updateAdvanceAdvance(input: $input) {
+    _id
+    advance
+  }
+}
+`;
 
-// Modal ===============
 const EditAvance = ({avance}) => {
-  
+
+  // Modal ===============
   const style = {
     position: 'absolute',
     top: '50%',
@@ -47,16 +36,17 @@ const EditAvance = ({avance}) => {
   const handleClose = () => setOpen(false);
 
   // Advance state ===============
+
   const [edit, setEdit] = useState({
     projectID: avance._id,
     avance: avance.advance,
-    comments: avance.comments,
   });
  
   const handleChange = (event) => {
     setEdit({... avance, [event.target.name]: event.target.value});
   };
 
+  const [updateAdvance, { data, loading, error }] = useMutation(UpdateAdvance);
   
   return(
     <>
@@ -70,12 +60,11 @@ const EditAvance = ({avance}) => {
     <Box sx={style}>
     <h1>Editar avance</h1>
     <Grid>
-      <TextField id="avance" label="Avance" variant="outlined" onChange={handleChange} placeholder={avance.advance} />
+      <TextField id="avance" multiline rows={4} label="Avance" variant="outlined" onChange={handleChange} value={avance.advance} />
     </Grid>
     <br />
-    <Grid>
-      <TextField id="comments" label="Comentario" variant="outlined" onChange={handleChange} placeholder={avance.comments} />
-    </Grid>
+    <Button variant="contained" onClick={() => updateAdvance({ variables: {avance: edit.avance}})}>Guardar cambios</Button>
+    <h4>(Haz click fuera del recuadro blanco para cancelar)</h4>
     </Box>
   </Modal>
   </>
