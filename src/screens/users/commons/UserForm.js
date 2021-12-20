@@ -1,4 +1,5 @@
-import * as React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,10 +9,39 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useNavigate } from "react-router-dom";
 
+const ADMIN = 'ADMIN';
+const LEADER = 'LEADER';
+const STUDENT = 'STUDENT';
+
+
+export const USER_ROLES = {
+    [ADMIN]: ADMIN,
+    [LEADER]: LEADER,
+    [STUDENT]: STUDENT
+};
+
 
 const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
 
     const navigate = useNavigate();
+
+    const [isLeaderChecked, setIsLeaderChecked] = React.useState(false);
+    const [isStudentChecked, setIsStudentChecked] = React.useState(true);
+
+    const [isAdmin, setIsAdmin] = React.useState(false);
+
+    const initialState = {
+        documentId: 0,
+        email: '',
+        fullName: '',
+        lastName: '',
+        name: '',
+        password: '',
+        role: '',
+        _id: ''
+    };
+
+    const [userProfile, setUserProfile] = React.useState(initialState);
 
     const handleSubmit = (event) => {
 
@@ -19,15 +49,18 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
         const data = new FormData(event.currentTarget);
         // console.log(event.currentTarget);
         // console.log(data);
-        
+
         const userData = {
             name: data.get('name'),
             lastName: data.get('lastName'),
             email: data.get('email'),
             password: data.get('password'),
             documentId: data.get('documentId'),
-            student: data.get('student'),
             role: data.get('role'),
+        }
+
+        if (!isRegisterEnabled) {
+            return onHandleSubmit({ ...userProfile, role: isLeaderChecked ? LEADER : STUDENT });
         }
 
         return onHandleSubmit(userData);
@@ -36,6 +69,66 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
     const onPressGoBack = () => {
         navigate("/");
     };
+
+    const handleLeaderChange = (event) => {
+        if (isStudentChecked) {
+            setIsStudentChecked(false);
+        }
+        setIsLeaderChecked(event.target.checked);
+    };
+
+    const handleStudentChange = (event) => {
+        if (isLeaderChecked) {
+            setIsLeaderChecked(false);
+        }
+        setIsStudentChecked(event.target.checked);
+    };
+
+    // -------
+    //
+    // -------
+
+    const onChangeName = (event) => {
+        setUserProfile(prevState => ({ ...prevState, name: event.target.value  }));
+    };
+
+    const onChangeLastName = (event) => {
+        setUserProfile(prevState => ({ ...prevState, lastName: event.target.value  }));
+    };
+
+    const onChangeDocId = (event) => {
+        setUserProfile(prevState => ({ ...prevState, documentId: event.target.value  }));
+    };
+
+    const onChangeEmail = (event) => {
+        setUserProfile(prevState => ({ ...prevState, email: event.target.value  }));
+    };
+
+    const onChangePassword = (event) => {
+        setUserProfile(prevState => ({ ...prevState, password: event.target.value  }));
+    };
+
+    React.useEffect(() => {
+        if (!isRegisterEnabled) {
+            const userStored = localStorage.getItem('user');
+            const currentUser = JSON.parse(userStored)
+            console.log('current user', currentUser);
+
+            setUserProfile(prevState => ({ ...prevState, ...currentUser }));
+
+            if (currentUser.role === LEADER) {
+                setIsLeaderChecked(true);
+                setIsStudentChecked(false);
+            }
+            else if (currentUser.role === STUDENT) {
+                setIsLeaderChecked(false);
+                setIsStudentChecked(true);
+            }
+            else {
+                setIsAdmin(true);
+            }
+        }
+    }, [])
 
     return (
         <>
@@ -51,6 +144,8 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                onChange={onChangeName}
+                                value={userProfile.name}
                                 autoComplete="given-name"
                                 name="name"
                                 required
@@ -62,6 +157,8 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                onChange={onChangeLastName}
+                                value={userProfile.lastName}
                                 required
                                 fullWidth
                                 id="lastName"
@@ -72,6 +169,8 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                onChange={onChangeDocId}
+                                value={userProfile.documentId || ''}
                                 required
                                 fullWidth
                                 id="documentId"
@@ -81,6 +180,8 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                onChange={onChangeEmail}
+                                value={userProfile.email}
                                 required
                                 fullWidth
                                 id="email"
@@ -91,6 +192,8 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                onChange={onChangePassword}
+                                value={userProfile.password}
                                 required
                                 fullWidth
                                 name="password"
@@ -100,16 +203,23 @@ const UserForm = ({ isRegisterEnabled, onHandleSubmit }) => {
                                 autoComplete="new-password"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox defaultChecked name="role" value="STUDENT" color="primary" />}
-                                label="ESTUDIANTE"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox name="role" value="LEADER" color="primary" />}
-                                label="LIDER"
-                            />
-                        </Grid>
+                        {
+                            isAdmin ? (
+                                <h2>Eres Administrador</h2>
+                            ) : (
+                                <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={<Checkbox name="role" value="STUDENT" color="primary" checked={isStudentChecked} onChange={handleStudentChange} />}
+                                        label="ESTUDIANTE"
+                                    />
+                                    <FormControlLabel
+                                        control={<Checkbox name="role" value="LEADER" color="primary" checked={isLeaderChecked} onChange={handleLeaderChange} />}
+                                        label="LIDER"
+                                    />
+                                </Grid>
+                            )
+                        }
+
                     </Grid>
                     <Button
                         type="submit"

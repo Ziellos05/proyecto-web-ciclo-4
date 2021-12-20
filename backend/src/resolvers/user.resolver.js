@@ -14,10 +14,12 @@ const allUsers = async (parent, args, { user, errorMessage }) => {
   if(!user) {
     throw new AuthenticationError(errorMessage);
   }
-  if(user.role !== ROLES.ADMIN) {
+ /*  if(user.role !== ROLES.ADMIN) {
     throw new Error('Access denied');
-  }
-  return await Users.find();
+  } */
+  //console.log(args);
+  return await Users.find({...args.filtro});
+  
 };
 
 const allStudents = async (parent, args, { user, errorMessage }) => {
