@@ -3,7 +3,7 @@ import RegisterScreen from "../screens/users/register/Register";
 import HomeScreen from "../screens/home/Home";
 
 import AvancesScreen from "../screens/avances/AvancesScreen";
-import EditAvance from "../screens/avances/EditAvance";
+import AvancesProyecto from "../screens/avances/AvancesProyecto";
 
 import ProyectosScreen from '../screens/proyectos/ProyectosScreen';
 import GestionProyectos from "../screens/proyectos/gestion/GestionProyectos";
@@ -13,7 +13,8 @@ import EditarProyectos from "../screens/proyectos/gestion/EditarProyectos";
 import InscripcionesScreen from '../screens/inscripciones/InscripcionesScreen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-
+import UserProfile from "../screens/users/profile/UserProfile";
+import UserList from "../screens/users/list/UserList";
 
 export const publicListScreen = [
     {
@@ -76,9 +77,23 @@ export const privateListScreen = [
         icon: <ArrowForwardIosIcon />,
     },
     {
-        id: 'EditAvance',
-        path: '/editaravance/:id',
-        component: <EditAvance />,
+        id: 'PerfilUsuario',
+        path: '/perfil',
+        component: <UserProfile />,
+        name: 'Perfil Usuario',
+        icon: <ArrowForwardIosIcon />,
+    },
+    {
+        id: 'ListaUsuarios',
+        path: '/listas',
+        component: <UserList />,
+        name: 'Lista Usuarios',
+        icon: <ArrowForwardIosIcon />,
+    },
+    {
+        id: 'AvanceProyecto',
+        path: '/avances/proyecto/:_id',
+        component: <AvancesProyecto />,
     },
     {
         id: 'EditarProyectos',

@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const httpLink = createHttpLink({
     uri: 'https://gestor-de-proyectos-backend.herokuapp.com/graphql',
+    //uri: 'http://localhost:4000/graphql',
 });
 
 // const client = new ApolloClient({

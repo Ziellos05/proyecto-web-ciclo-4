@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,14 +12,22 @@ import {
 } from "@apollo/client";
 
 
-const REGISTER_USER = gql`
-    mutation Register($input: RegisterInput!) {
-        register(input: $input) {
-            _id
+const UPDATE_USER = gql`
+    mutation UpdateUser($input: UpdateUserInput!) {
+        updateUser(input: $input) {
+            name
         }
     }
 `;
 
+//POSSIBLE DATA TO UPDATE
+//      email: String
+//     documentId: Float
+//     name: String
+//     lastName: String
+//     fullName: String
+//     role: UserRole
+//     password: String
 
 const style = {
     position: 'absolute',
@@ -32,31 +41,36 @@ const style = {
     p: 4,
 };
 
-const RegisterUser = ({ isOpen, onRegisterSuccess, onRegisterError, userData }) => {
+const UpdateUser = ({ userData, isOpen, onUpdateSuccess, onUpdateError }) => {
 
-    // const { setToken } = React.useContext(AppContext);
-    // const { loading, error, data } = useQuery(LOG_IN, { variables: { email: userEmail, password: userPassword } });
+    // const { setToken, setUser } = React.useContext(AppContext);
     const { email, documentId, name, lastName, role, password } = userData;
 
+    const [updateUser, { data, loading, error }] = useMutation(UPDATE_USER);
 
-    const [register, { data, loading, error }] = useMutation(REGISTER_USER);
-
+    
     React.useEffect(() => {
-        register({ variables: { input: {email, password, documentId: Number(documentId), name, lastName, role} } });
+        updateUser({ variables: { input: {email, password, documentId: Number(documentId), name, lastName, role} } });
     }, []);
 
+
     React.useEffect(() => {
-        if (loading) return;
+        if(loading) return;
         if (error) {
-            onRegisterError(`Error! ${error}`);
+            onUpdateError(`Error! ${error}`);
         }
-        else if (data && data.register) {
-            console.log('register data', data);
-            // localStorage.setItem('token', data.login);
+        else if (data && data.updateUser) {
+            const userStored = localStorage.getItem('user');
+            const user = JSON.parse(userStored);
+            localStorage.setItem('user', JSON.stringify({ ...user, ...userData }));
+
+            // setUser({ type: 'LOG_IN', payload: { ...userDecoded.user }})
             // setToken({ type: 'ADD_TOKEN', payload: data.login });
-            onRegisterSuccess();
+            onUpdateSuccess();
         }
     }, [error, data]);
+
+    
 
     return (
         <div>
@@ -67,7 +81,7 @@ const RegisterUser = ({ isOpen, onRegisterSuccess, onRegisterError, userData }) 
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style} >
-                    <CircularProgress style={{ marginLeft: 25 }} />
+                    <CircularProgress style={{marginLeft:25}}/>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Cargando...
                     </Typography>
@@ -77,4 +91,4 @@ const RegisterUser = ({ isOpen, onRegisterSuccess, onRegisterError, userData }) 
     );
 };
 
-export default RegisterUser;
+export default UpdateUser;

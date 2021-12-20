@@ -1,43 +1,66 @@
-// import React from 'react';
-// import Button from '@mui/material/Button';
-// import GetUser from './GetUser';
+import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { useNavigate } from "react-router-dom";
+import UserIcon from '../commons/UserIcon';
+import UserForm from '../commons/UserForm';
+import UpdateUser from './UpdateUser';
 
+const UserProfile = () => {
 
+    const navigate = useNavigate();
 
-// const HomeScreen = () => {
-  
-//   const [openGetUser, setOpenGetUser] = React.useState(true);
+    const [openUpdateUser, setOpenUpdateUser] = React.useState(false);
 
-//   const onOpenGetUser = () => setOpenGetUser(true);
-//   const onCloseGetUser = () => setOpenGetUser(false);
+    const onOpenUpdateUser = () => setOpenUpdateUser(true);
+    const onCloseUpdateUser = () => setOpenUpdateUser(false);
 
-//   const onGetUserSuccess = () => {
-//     onCloseGetUser();
-//   }
+    const refUserData = React.useRef({});
 
-//   const onGetUserError = (error) => {
-//     onCloseGetUser();
-//     alert(error);
-//   }
+    const onUpdateSuccess = () => {
+        onCloseUpdateUser();
+        alert('Se actualizó usuario!');
+        setTimeout(() => {
+            navigate('/home', { replace: true });
+        }, 100);
+    };
 
-//   React.useEffect(() => {
-//     const token = localStorage.getItem('token');
-//     console.log('token', token);
+    const onUpdateError = (error) => {
+        onCloseUpdateUser();
+        alert(error);
+    };
 
-//     const user = localStorage.getItem('user');
-//     console.log('current user', JSON.parse(user));
-//   }, [])
+    const onHandleSubmit = (userData) => {
+        refUserData.current = userData;
+        onOpenUpdateUser();
+    };
 
-//   return (
-//     <>
-//       <Button variant="contained">Los REACTivos</Button>
-//       {/* {openGetUser && <GetUser 
-//             isOpen={openGetUser} 
-//             onGetUserSuccess={onGetUserSuccess}
-//             onGetUserError={onGetUserError}
-//       />} */}
-//     </>
-//   );
-// }
+    return (
+        <>
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                {openUpdateUser && <UpdateUser
+                    userData={refUserData.current}
+                    isOpen={openUpdateUser}
+                    onUpdateSuccess={onUpdateSuccess}
+                    onUpdateError={onUpdateError}
+                />}
+                <UserIcon />
+                <Typography component="h1" variant="h5">
+                    Actualizar Datos
+                </Typography>
 
-// export default HomeScreen;
+                <UserForm onHandleSubmit={onHandleSubmit} />
+
+            </Box>
+        </>
+    );
+}
+
+export default UserProfile;
