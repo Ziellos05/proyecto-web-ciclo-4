@@ -7,7 +7,7 @@ import Footer from '../commons/Footer';
 import UserIcon from '../commons/UserIcon';
 import UserForm from '../commons/UserForm';
 import RegisterUser from './RegisterUser';
-import { AppContext } from '../../../context/ContextProvider';
+// import { AppContext } from '../../../context/ContextProvider';
 
 
 const RegisterScreen = () => {

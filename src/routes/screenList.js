@@ -13,7 +13,8 @@ import EditarProyectos from "../screens/proyectos/gestion/EditarProyectos";
 import InscripcionesScreen from '../screens/inscripciones/InscripcionesScreen';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-
+import UserProfile from "../screens/users/profile/UserProfile";
+import UserList from "../screens/users/list/UserList";
 
 export const publicListScreen = [
     {
@@ -84,5 +85,19 @@ export const privateListScreen = [
         id: 'EditarProyectos',
         path: '/proyectos/gestion/editar/:_id',
         component: <EditarProyectos />,
+    },
+    {
+        id: 'PerfilUsuario',
+        path: '/perfil',
+        component: <UserProfile />,
+        name: 'Perfil Usuario',
+        icon: <ArrowForwardIosIcon />,
+    },
+    {
+        id: 'ListaUsuarios',
+        path: '/listas',
+        component: <UserList />,
+        name: 'Lista Usuarios',
+        icon: <ArrowForwardIosIcon />,
     },
 ];

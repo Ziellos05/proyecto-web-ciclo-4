@@ -45,7 +45,7 @@ const AuthUser = ({ email: userEmail, password: userPassword, isOpen, onAuthSucc
 
             const userDecoded = jwt.decode(data.login);
             // console.log('user coded in token', userDecoded.user);
-            localStorage.setItem('user', JSON.stringify(userDecoded.user));
+            localStorage.setItem('user', JSON.stringify( { ...userDecoded.user, password: userPassword } ));
 
             setUser({ type: 'LOG_IN', payload: { ...userDecoded.user }})
             setToken({ type: 'ADD_TOKEN', payload: data.login });
