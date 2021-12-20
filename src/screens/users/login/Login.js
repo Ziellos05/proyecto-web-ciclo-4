@@ -1,8 +1,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-//import FormControlLabel from '@mui/material/FormControlLabel';
-//import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,23 +11,6 @@ import { AppContext } from '../../../context/ContextProvider';
 import Footer from '../commons/Footer';
 import UserIcon from '../commons/UserIcon';
 import AuthUser from './AuthUser';
-
-
-// const GET_ALL_USERS = gql`
-//   query AllUsers {
-//     allUsers {
-//       _id
-//       email
-//       documentId
-//       name
-//       lastName
-//       fullName
-//       role
-//       status
-//     }
-//   }
-// `;
-
 
 
 

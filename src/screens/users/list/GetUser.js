@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CircularProgress from '@mui/material/CircularProgress';
-import { AppContext } from '../../context/ContextProvider';
+// import { AppContext } from '../../../context/ContextProvider';
 
 import {
     useQuery,
@@ -25,6 +25,15 @@ const GET_ALL_USERS = gql`
   }
 `;
 
+const GET_ALL_STUDENTS = gql`
+  query AllStudents {
+    allStudents {
+      name
+    }
+  }
+`;
+
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -37,31 +46,33 @@ const style = {
     p: 4,
 };
 
-const GetUser = ({ isOpen, onGetUserSuccess, onGetUserError }) => {
+const GetUser = ({ isOpen, onGetUserSuccess, onGetUserError, userRole }) => {
 
-    const { user, setUser } = React.useContext(AppContext);
-    const { loading, error, data } = useQuery(GET_ALL_USERS);
+    // const { user, setUser } = React.useContext(AppContext);
+
+    const queryType = userRole === 'ADMIN' ? GET_ALL_USERS : GET_ALL_STUDENTS;
+
+    const { loading, error, data } = useQuery(queryType);
 
 
     React.useEffect(() => {
         if (loading) return;
         if (error) {
-            console.log('current User', user);
-            localStorage.setItem('user', JSON.stringify(user));
             onGetUserError(`Error! ${error}`);
         }
-        else if (data && data.allUsers) {
-            // console.log('allUsers ', data.allUsers);
-            const userFound = data.allUsers.find(element => element.email === user.email);
-            if (userFound) {
-                console.log('current User', { ...user, ...userFound });
-                localStorage.setItem('user', JSON.stringify({...user, ...userFound} ));
-                setUser({ type: 'LOG_IN', payload: { ...userFound}})
-                onGetUserSuccess()
-            } 
-            else {
-                onGetUserError(`Error! User not found`);
-            }
+        else if (data.allStudents || data.allUsers) {
+            console.log('allUsers ', data);
+            onGetUserSuccess(data.allStudents || data.allUsers)
+            // const userFound = data.allUsers.find(element => element.email === user.email);
+            // if (userFound) {
+            //     console.log('current User', { ...user, ...userFound });
+            //     localStorage.setItem('user', JSON.stringify({...user, ...userFound} ));
+            //     setUser({ type: 'LOG_IN', payload: { ...userFound}})
+            //     onGetUserSuccess()
+            // } 
+            // else {
+            //     onGetUserError(`Error! User not found`);
+            // }
             
         }
         
