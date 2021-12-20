@@ -77,16 +77,6 @@ export const privateListScreen = [
         icon: <ArrowForwardIosIcon />,
     },
     {
-        id: 'AvanceProyecto',
-        path: '/avances/proyecto/:id',
-        component: <AvancesProyecto />,
-    },
-    {
-        id: 'EditarProyectos',
-        path: '/proyectos/gestion/editar/:_id',
-        component: <EditarProyectos />,
-    },
-    {
         id: 'PerfilUsuario',
         path: '/perfil',
         component: <UserProfile />,
@@ -99,5 +89,15 @@ export const privateListScreen = [
         component: <UserList />,
         name: 'Lista Usuarios',
         icon: <ArrowForwardIosIcon />,
+    },
+    {
+        id: 'AvanceProyecto',
+        path: '/avances/proyecto/:_id',
+        component: <AvancesProyecto />,
+    },
+    {
+        id: 'EditarProyectos',
+        path: '/proyectos/gestion/editar/:_id',
+        component: <EditarProyectos />,
     },
 ];

@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 
+
 // import { Link } from "@mui/material";
 
 const GestionProyectos = () => {
@@ -44,6 +45,7 @@ const GestionProyectos = () => {
                             <TableCell align="right">Estado</TableCell>
                             <TableCell align="right">Fase</TableCell>
                             <TableCell align="right">Acciones</TableCell>  
+                            <TableCell align="right">Avances</TableCell>
                         </TableRow>
                     </TableHead>
                     
@@ -62,7 +64,9 @@ const GestionProyectos = () => {
                                 <TableCell align="right"> 
                                     <Link to= {`/proyectos/gestion/editar/${u._id}`}>Editar</Link> 
                                 </TableCell>
-                                                        
+                                <TableCell align="right" >
+                                    <Link to={`/avances/proyecto/${u._id}`}><Button variant="contained">Avances</Button></Link>
+                                </TableCell>
                             </TableRow>
                             ))}
                     </TableBody>
