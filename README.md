@@ -5,7 +5,7 @@ Este es el proyecto realizado entre 4 compañeros para el ciclo 4 de Misión TIC
 ### Tecnologías usadas
 
     - ReactJS
-    - NodEJS
+    - NodeJS
     - MongoDB
     - Bootstrap
     - GraphQL <3
